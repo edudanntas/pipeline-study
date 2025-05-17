@@ -13,8 +13,8 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv() {
-                    sh "./mvnw sonar:sonar -Dsonar.projectKey=teste-pipe -Dsonar.projectName='teste-pipe'"
+                withSonarQubeEnv('MeuSonar') {
+                    sh "./mvnw sonar:sonar"
                 }
             }
         }
