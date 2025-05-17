@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'maven:3.9.4-openjdk-17'  // Imagem oficial do Maven com JDK 17
+            args '-v /root/.m2:/root/.m2'  // Monta o cache do Maven para acelerar builds
+        }
+    }
     stages {
         stage('Checkout') {
             steps {
