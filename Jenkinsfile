@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.9.4-openjdk-17'  // Imagem oficial do Maven com JDK 17
-            args '-v /root/.m2:/root/.m2'  // Monta o cache do Maven para acelerar builds
-        }
-    }
+    agent any
     stages {
         stage('Checkout') {
             steps {
@@ -13,13 +8,13 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'mvn clean package'
+                sh './mvnw clean package'
             }
         }
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh "mvn sonar:sonar -Dsonar.projectKey=teste-pipe -Dsonar.projectName='teste-pipe'"
+                    sh "./mvnw sonar:sonar -Dsonar.projectKey=teste-pipe -Dsonar.projectName='teste-pipe'"
                 }
             }
         }
